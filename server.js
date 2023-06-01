@@ -30,28 +30,14 @@ app.use('/api/v1/auth', authRoutes)
 app.use('/api/v1/category', categoryRoutes)
 app.use('/api/v1/product', productRoutes)
 
-///second try
-// app.use(express.static(path.join(__dirname, '..', 'build')));
-// app.use(express.static('public'));
 
-// app.use((req, res, next) => {
-//   res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
-// });
 
-if (process.env.NODE_ENV) {
-  //static folder add
-app.use(express.static('dip/client/build'));
-app.get("*", function (req, res) {
-  res.sendFile(path.resolve(__dirname , "dip/client/build", "index.html"));
-});
-}
+//first try
+app.use(express.static(path.join(__dirname, './client/bild')))
 
-////first try
-// app.use(express.static(path.join(__dirname, './client/bild')))
-
-// app.use('*', function(req, res){
-//     res.sendFile(path.join(__dirname, './client/build/index.html'))
-// })
+app.use('*', function(req, res){
+    res.sendFile(path.join(__dirname, './client/build/index.html'))
+})
 
 
 const PORT = process.env.PORT || 8080;
