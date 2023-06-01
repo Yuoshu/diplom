@@ -33,10 +33,10 @@ app.use('/api/v1/product', productRoutes)
 
 
 //first try
-app.use(express.static(path.join(__dirname, './client/bild')))
+app.use(express.static(path.join(__dirname + '/client/bild')))
 
 app.use('*', function(req, res){
-    res.sendFile(path.join(__dirname, './client/build/index.html'))
+    res.sendFile(path.join(__dirname + '/client/build/index.html'))
 })
 
 
