@@ -38,11 +38,13 @@ app.use('/api/v1/product', productRoutes)
 //   res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 // });
 
-app.use(express.static(__dirname + '/dist/YOURPROJECTNAME'));
-app.get('/*', function(req,res) {
-res.sendFile(path.join(__dirname + '/dist/YOURPROJECTNAME/index.html'));
-
+if (process.env.NODE_ENV) {
+  //static folder add
+app.use(express.static('dip/client/build'));
+app.get("*", function (req, res) {
+  res.sendFile(path.resolve(__dirname , "dip/client/build", "index.html"));
 });
+}
 
 ////first try
 // app.use(express.static(path.join(__dirname, './client/bild')))
