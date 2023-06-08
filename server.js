@@ -14,7 +14,7 @@ import path from 'path'
 
 dotenv.config()
 
-// connectDB();
+connectDB();
 
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);
@@ -24,7 +24,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(morgan('dev'))
-// app.use(express.static(path.join(__dirname + '/client/build')))
+app.use(express.static(path.join(__dirname + '/client/build')))
 
 
 app.use('/api/v1/auth', authRoutes)
@@ -45,13 +45,4 @@ app.get("*", function (_, res) {
 
 const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, async () => {
-    try{
-        await connectDB();
-      console.log(__dirname);
-        console.log(`Lostening at ${PORT}`);
-    }catch(e){
-        console.log(e.message);
-    }
-//     console.log(`Server runnig ${process.env.DEV_MODE} mode on port ${PORT}`.bgCyan.white)
-})
+    console.log(`Server runnig ${process.env.DEV_MODE} mode on port ${PORT}`.bgCyan.white)
