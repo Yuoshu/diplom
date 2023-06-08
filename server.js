@@ -32,17 +32,15 @@ app.use('/api/v1/category', categoryRoutes)
 app.use('/api/v1/product', productRoutes)
 
 
-app.use(express.static(path.join(__dirname, "./client/build")));
 app.get("*", function (_, res) {
   res.sendFile(
-    path.join(__dirname, "./client/build/index.html"),
-    function (err) {
-      res.status(500).send(err);
-    }
+    path.join(__dirname, "./client/build/index.html");
   );
 });
 
 
 const PORT = process.env.PORT || 8080;
 
-    console.log(`Server runnig ${process.env.DEV_MODE} mode on port ${PORT}`.bgCyan.white)
+app.listen(PORT, () => {
+    console.log(`Server runnig ${process.env.DEV_MODE} mode on port ${PORT}`.bgCyan.white)  
+}
