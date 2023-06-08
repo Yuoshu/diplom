@@ -8,23 +8,23 @@ import categoryRoutes from './routes/categoryRoutes.js'
 import productRoutes from './routes/productRoutes.js'
 import cors from 'cors'
 import path from 'path'
-import { fileURLToPath } from 'url';
+// import { fileURLToPath } from 'url';
 
 
 
 dotenv.config()
 
-connectDB();
+// connectDB();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
 const app = express()
 
 app.use(cors())
 app.use(express.json())
 app.use(morgan('dev'))
-app.use(express.static(path.join(__dirname + '/client/build')))
+// app.use(express.static(path.join(__dirname + '/client/build')))
 
 
 app.use('/api/v1/auth', authRoutes)
@@ -32,13 +32,25 @@ app.use('/api/v1/category', categoryRoutes)
 app.use('/api/v1/product', productRoutes)
 
 
-app.use('*', function(req, res){
-    res.sendFile(path.join(__dirname + '/client/build/index.html'))
+app.use(express.static(path.join(__dirname, "./client/build")));
+app.get("*", function (_, res) {
+  res.sendFile(
+    path.join(__dirname, "./client/build/index.html"),
+    function (err) {
+      res.status(500).send(err);
+    }
+  );
 });
 
 
 const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, () => {
-    console.log(`Server runnig ${process.env.DEV_MODE} mode on port ${PORT}`.bgCyan.white)
+app.listen(PORT, async () => {
+    try{
+        await connectDB();
+        console.log(`Lostening at ${PORT}`);
+    }catch(e){
+        console.log(e.message);
+    }
+//     console.log(`Server runnig ${process.env.DEV_MODE} mode on port ${PORT}`.bgCyan.white)
 })
