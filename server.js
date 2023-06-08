@@ -48,6 +48,7 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, async () => {
     try{
         await connectDB();
+      console.log(__dirname);
         console.log(`Lostening at ${PORT}`);
     }catch(e){
         console.log(e.message);
